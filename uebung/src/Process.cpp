@@ -9,7 +9,7 @@ Process::~Process()
 }
 std::ostream& operator<<(std::ostream& os, const Process& arg)
 {
-    os << arg.id << " | " << arg.name << " | " << arg.pDuration;
+    os << arg.id << " | " << arg.name << " | " << *(arg.pDuration);
     return os;
 }
 const Duration& Process::TimeSpan()

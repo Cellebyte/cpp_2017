@@ -14,8 +14,8 @@ Duration Duration::operator+ (const Duration &rhs)
 }
 Duration Duration::Add(const Duration& arg1, const Duration& arg2)
 {
-    Duration result = Duration(arg1.h+arg2.h,arg1.m+arg2.m,arg1.s+arg2.s);
-    return result;
+    Duration* result = new Duration(arg1.h+arg2.h,arg1.m+arg2.m,arg1.s+arg2.s);
+    return *result;
 }
 std::ostream& operator<< (std::ostream& os, const Duration& arg)
 {

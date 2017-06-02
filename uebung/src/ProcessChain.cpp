@@ -9,7 +9,7 @@ Duration ProcessChain::CalcChainDuration()
     int i=0;
     while(pChain[i])
     {
-        whole=Duration::Add(whole,(pChain[i])->TimeSpan());
+        whole=Duration::Add(whole,pChain[i]->TimeSpan());
         i++;
     }
     return whole;
@@ -17,17 +17,22 @@ Duration ProcessChain::CalcChainDuration()
 
 ProcessChain::~ProcessChain()
 {
-    for(int i=0;i<MaxProcesses;i++)
+
+    /*for(int i=0;i<MaxProcesses;i++)
         delete pChain[i];
-    delete[] *pChain;
+    delete[] *pChain;*/
 }
 bool ProcessChain::Insert(const Process& arg)
 {
-    for(int i=0; i< MaxProcesses; i++)
+
+    for(int i=0; i < MaxProcesses; i++)
     {
+        std::cout << arg << '\n';
         if(! pChain[i])
         {
-            *(pChain[i])=arg;
+            std::cout << "Before" << '\n';
+            *pChain[i] = arg;
+            std::cout << "Done" << '\n';
             return true;
         }
     }
@@ -37,9 +42,10 @@ std::ostream& operator<<(std::ostream& os, const ProcessChain& arg)
 {
     os << arg.name << ":\n";
     int i=0;
-    while((arg.pChain)[i])
+    std::cout << "I'm an op" << '\n';
+    while(arg.pChain[i])
     {
-        os << &(arg.pChain)[i] << '\n';
+        os << arg.pChain[i] << '\n';
         i++;
     }
     //os << "Whole Duration:" << arg.CalcChainDuration();

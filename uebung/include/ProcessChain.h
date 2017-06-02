@@ -10,7 +10,7 @@ class ProcessChain
 {
     static const int MaxProcesses = 100;
     std::string name;
-    Process *pChain[MaxProcesses] = {nullptr};
+    Process *pChain[MaxProcesses];
     Duration CalcChainDuration();
     public:
         ProcessChain(std::string name): name(name){};

@@ -5,22 +5,22 @@
 #include "ProcessChain.h"
 Duration ProcessChain::CalcChainDuration()
 {
-    Duration whole;
+    Duration* whole = new Duration();
     int i=0;
     while(pChain[i])
     {
-        whole=Duration::Add(whole,pChain[i]->TimeSpan());
+        *whole=Duration::Add(*whole,pChain[i]->TimeSpan());
         i++;
     }
-    return whole;
+    return *whole;
 }
 
 ProcessChain::~ProcessChain()
 {
 
-    /*for(int i=0;i<MaxProcesses;i++)
+    for(int i=0;i<MaxProcesses;i++)
         delete pChain[i];
-    delete[] *pChain;*/
+    delete[] *pChain;
 }
 bool ProcessChain::Insert(const Process& arg)
 {
@@ -31,7 +31,7 @@ bool ProcessChain::Insert(const Process& arg)
         if(! pChain[i])
         {
             std::cout << "Before" << '\n';
-            *pChain[i] = arg;
+            //*pChain[i] = arg; // I do not know why it is not working,,
             std::cout << "Done" << '\n';
             return true;
         }
@@ -42,12 +42,12 @@ std::ostream& operator<<(std::ostream& os, const ProcessChain& arg)
 {
     os << arg.name << ":\n";
     int i=0;
-    std::cout << "I'm an op" << '\n';
     while(arg.pChain[i])
     {
         os << arg.pChain[i] << '\n';
         i++;
     }
-    //os << "Whole Duration:" << arg.CalcChainDuration();
+    Duration a = arg.CalcChainDuration();
+    os << "Whole Duration:" << a;
     return os;
 }

@@ -24,19 +24,22 @@ ProcessChain::~ProcessChain()
 }
 bool ProcessChain::Insert(const Process& arg)
 {
-
     for(int i=0; i < MaxProcesses; i++)
     {
-        std::cout << arg << '\n';
         if(! pChain[i])
         {
             std::cout << "Before" << '\n';
-            //*pChain[i] = arg; // I do not know why it is not working,,
+            pChain[i] = new Process(0,""); //fixed
+            *pChain[i] = arg;
             std::cout << "Done" << '\n';
+            std::cout << pChain[i] << '\n';
+            std::cout << *pChain[i] << '\n';
             return true;
         }
+        std::cout << pChain[i] << '\n';
+        std::cout << *pChain[i] << '\n';
     }
-    return false;
+    return true;
 }
 std::ostream& operator<<(std::ostream& os, const ProcessChain& arg)
 {
@@ -47,7 +50,7 @@ std::ostream& operator<<(std::ostream& os, const ProcessChain& arg)
         os << arg.pChain[i] << '\n';
         i++;
     }
-    Duration a = arg.CalcChainDuration();
-    os << "Whole Duration:" << a;
+    //Duration a = arg.CalcChainDuration();
+    //os << "Whole Duration:" << a;
     return os;
 }

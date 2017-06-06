@@ -30,12 +30,8 @@ bool ProcessChain::Insert(const Process& arg)
         {
             pChain[i] = new Process(0,""); //fixed
             *pChain[i] = arg;
-            std::cout << pChain[i] << '\n';
-            std::cout << *pChain[i] << '\n';
             return true;
         }
-        std::cout << pChain[i] << '\n';
-        std::cout << *pChain[i] << '\n';
     }
     return true;
 }
@@ -45,12 +41,10 @@ std::ostream& operator<<(std::ostream& os, const ProcessChain& arg)
     int i=0;
     while(arg.pChain[i])
     {
-        os << arg.pChain[i] << '\n';
+        os << *arg.pChain[i] << '\n';
         i++;
     }
-    ProcessChain* temp = new ProcessChain("");
-    *temp=arg;
-    Duration a = temp->CalcChainDuration();
+    Duration a = const_cast<ProcessChain&>(arg).CalcChainDuration();
     os << "Whole Duration: " << a;
     return os;
 }

@@ -24,16 +24,21 @@ ProcessChain::~ProcessChain()
 }
 bool ProcessChain::Insert(const Process& arg)
 {
+    int argID= const_cast<Process&>(arg).id;
     for(int i=0; i < MaxProcesses; i++)
     {
         if(! pChain[i])
         {
             pChain[i] = new Process(0,""); //fixed
             *pChain[i] = arg;
+            std::cout << "Process inserted: " << arg << '\n';
             return true;
+        } else if(argID==pChain[i]->id){
+            std::cerr << "Process ID already exists in chain: " << arg << '\n';
+            return false;
         }
     }
-    return true;
+    return false;
 }
 std::ostream& operator<<(std::ostream& os, const ProcessChain& arg)
 {

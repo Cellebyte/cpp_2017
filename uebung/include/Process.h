@@ -8,10 +8,11 @@
 #include "Duration.h"
 class Process
 {
-    int id;
+
     std::string name;
     Duration* pDuration = nullptr;
     public:
+        int id;
         Process(int id, std::string name): id(id), name(name){};
         virtual ~Process();
         friend std::ostream& operator<<(std::ostream& os, const Process& arg);

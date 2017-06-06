@@ -5,14 +5,14 @@
 #include "ProcessChain.h"
 Duration ProcessChain::CalcChainDuration()
 {
-    Duration* whole = new Duration();
+    Duration whole = Duration();
     int i=0;
-    while(this.pChain[i])
+    while(pChain[i])
     {
-        *whole=Duration::Add(*whole,*pChain[i].TimeSpan());
+        whole=Duration::Add(whole,(*pChain[i]).TimeSpan());
         i++;
     }
-    return *whole;
+    return whole;
 }
 
 ProcessChain::~ProcessChain()
@@ -48,7 +48,9 @@ std::ostream& operator<<(std::ostream& os, const ProcessChain& arg)
         os << arg.pChain[i] << '\n';
         i++;
     }
-    Duration a = arg.CalcChainDuration();
-    //os << "Whole Duration:" << a;
+    ProcessChain* temp = new ProcessChain("");
+    *temp=arg;
+    Duration a = temp->CalcChainDuration();
+    os << "Whole Duration: " << a;
     return os;
 }

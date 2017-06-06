@@ -23,6 +23,5 @@ int main()
     if (!(*d).Insert(*p3)) return 1;
     if (!(*d).Insert(*p2)) return 1;
 
-    std::cout << "\nreturn:\n";
     std::cout << *d << '\n';
 }

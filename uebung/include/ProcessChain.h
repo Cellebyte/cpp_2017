@@ -4,6 +4,7 @@
 
 #pragma once
 #include <string>
+#include <list>
 #include <iostream>
 #include "Process.h"
 class ProcessChain

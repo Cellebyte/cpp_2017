@@ -7,9 +7,9 @@ Duration ProcessChain::CalcChainDuration()
 {
     Duration* whole = new Duration();
     int i=0;
-    while(pChain[i])
+    while(this.pChain[i])
     {
-        *whole=Duration::Add(*whole,pChain[i]->TimeSpan());
+        *whole=Duration::Add(*whole,*pChain[i].TimeSpan());
         i++;
     }
     return *whole;
@@ -28,10 +28,8 @@ bool ProcessChain::Insert(const Process& arg)
     {
         if(! pChain[i])
         {
-            std::cout << "Before" << '\n';
             pChain[i] = new Process(0,""); //fixed
             *pChain[i] = arg;
-            std::cout << "Done" << '\n';
             std::cout << pChain[i] << '\n';
             std::cout << *pChain[i] << '\n';
             return true;
@@ -50,7 +48,7 @@ std::ostream& operator<<(std::ostream& os, const ProcessChain& arg)
         os << arg.pChain[i] << '\n';
         i++;
     }
-    //Duration a = arg.CalcChainDuration();
+    Duration a = arg.CalcChainDuration();
     //os << "Whole Duration:" << a;
     return os;
 }

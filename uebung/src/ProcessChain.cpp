@@ -45,7 +45,7 @@ std::ostream& operator<<(std::ostream& os, const ProcessChain& arg)
     int i=0;
     while(arg.pChain[i])
     {
-        os << arg.pChain[i] << '\n';
+        os << *(arg.pChain[i]) << '\n';
         i++;
     }
     ProcessChain* temp = new ProcessChain("");

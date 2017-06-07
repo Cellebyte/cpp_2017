@@ -24,33 +24,50 @@ ProcessChain::~ProcessChain()
 }
 bool ProcessChain::Insert(const Process& arg)
 {
+    int argID= const_cast<Process&>(arg).id;
     for(int i=0; i < MaxProcesses; i++)
     {
         if(! pChain[i])
         {
             pChain[i] = new Process(0,""); //fixed
             *pChain[i] = arg;
-            std::cout << pChain[i] << '\n';
-            std::cout << *pChain[i] << '\n';
+            std::cout << "Process inserted: " << arg << '\n';
             return true;
+        } else if(argID==pChain[i]->id){
+            std::cerr << "Process ID already exists in chain: " << arg << '\n';
+            return false;
         }
-        std::cout << pChain[i] << '\n';
-        std::cout << *pChain[i] << '\n';
     }
-    return true;
+    return false;
 }
 std::ostream& operator<<(std::ostream& os, const ProcessChain& arg)
 {
+
     os << arg.name << ":\n";
-    int i=0;
+
+    Duration d = const_cast<ProcessChain&>(arg).CalcChainDuration();
+    os << "Whole Duration: " << d << '\n';
+
+    std::list<Process>sortingList;
+
+
+    sortingList.push_front(*arg.pChain[0]);
+    int i=1;
     while(arg.pChain[i])
     {
-        os << *(arg.pChain[i]) << '\n';
+        for (std::list<Process>::iterator proc = sortingList.begin(); proc != sortingList.end(); ){
+            if(arg.pChain[i]->id>proc->id){
+                sortingList.insert (++proc, *arg.pChain[i]);
+                break;
+            } else{++proc;}
+        }
         i++;
     }
-    ProcessChain* temp = new ProcessChain("");
-    *temp=arg;
-    Duration a = temp->CalcChainDuration();
-    os << "Whole Duration: " << a;
+
+    //sortingList.sort();
+    for (std::list<Process>::iterator proc = sortingList.begin(); proc != sortingList.end(); ++proc){
+        os << *proc << '\n';
+    }
+
     return os;
 }
